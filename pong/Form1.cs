@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace pong
-{
+{   
     public partial class Form1 : Form
     {
-        private bool moveUp;
-        private bool moveDown;
+        private bool moveUpP1, moveUpP2;
+        private bool moveDownP1, moveDownP2;
         int score1 = 0;
         int score2 = 0;
         int ballx = 5;
@@ -33,20 +33,7 @@ namespace pong
             Ball.Top -= bally;
             Ball.Left -= ballx;
 
-            Player2.Top += ballspeed;
-
-            if (score1 < 5)
-            {
-                if (Player2.Top < 0  || Player2.Top > 455)
-                {
-                    ballspeed = -ballspeed;
-                }
-            }
-
-            else
-            {
-                Player2.Top = Ball.Top + 30;
-            }
+           
 
             if (Ball.Left < 0)
             {
@@ -76,14 +63,24 @@ namespace pong
                 ballx = -ballx;
             }
 
-            if (moveUp == true && Player1.Top > 1)
+            if (moveUpP1 == true && Player1.Top > 1)
             {
                 Player1.Top -= 8;
             }
 
-            if (moveDown == true && Player1.Bottom < 455)
+            if (moveDownP1 == true && Player1.Bottom < 455)
             {
                 Player1.Top += 8;
+            }
+
+            if (moveUpP2 == true && Player2.Top > 1)
+            {
+                Player2.Top -= 8;
+            }
+
+            if (moveDownP2 == true && Player2.Bottom < 455)
+            {
+                Player2.Top += 8;
             }
 
             if (score1 > 10)
@@ -99,16 +96,31 @@ namespace pong
             }
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Up)
             {
-                moveUp = false;
+                moveUpP1 = false;
             }
 
             if (e.KeyCode == Keys.Down)
             {
-                moveDown = false;
+                moveDownP1 = false;
+            }
+
+            if (e.KeyCode == Keys.W)
+            {
+                moveUpP2 = false;
+            }
+
+            if (e.KeyCode == Keys.S)
+            {
+                moveDownP2 = false;
             }
         }
 
@@ -116,12 +128,22 @@ namespace pong
         {
             if (e.KeyCode == Keys.Up)
             {
-                moveUp = true;
+                moveUpP1 = true;
             }
 
             if (e.KeyCode == Keys.Down)
             {
-                moveDown = true;
+                moveDownP1 = true;
+            }
+
+            if (e.KeyCode == Keys.W)
+            {
+                moveUpP2 = true;
+            }
+
+            if (e.KeyCode == Keys.S)
+            {
+                moveDownP2 = true;
             }
         }
     }
